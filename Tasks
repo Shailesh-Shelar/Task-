@@ -73,3 +73,109 @@ var input = [
      createobj(input)
      console.log(output)
 });
+
+#Task 2:-
+
+const inputval = "#exmple || @name && user_email"
+
+
+const outputval = [
+  {
+    type: 'intent',
+    value: 'exmple'
+  },
+  {
+    type: 'operator',
+    value: 'OR'
+  },
+  {
+    type: 'entity',
+    value: 'name'
+  },
+  {
+    type: 'operator',
+    value: 'AND'
+  },
+  {
+    type: 'variable',
+    value: 'user_email'
+  }
+]
+
+
+Answer:-
+const readline = require('readline');
+const inp = readline.createInterface({
+  input: process.stdin
+});
+const userInput = [];
+inp.on("line", (data) => {
+ userInput.push(data);
+});
+inp.on("close", () => {
+         var output=[]
+         var string=userInput[0].split(" ")
+         for(i=0;i<string.length;i++)
+         {
+             output.push(objcreat(string[i]))
+         }
+         console.log(output)
+         
+});
+
+function objcreat(input)
+{
+    var temp={}
+    if(input=="&&"||input=="||"||input=="+"||input=="-"||input=="/"||input=="*"||input=="%")
+    {
+        if(input=="&&")
+        {
+         temp.type="operator"
+         temp.value="AND"
+        }else if(input=="||")
+        {
+         temp.type="operator"
+         temp.value="OR"
+        }
+        else if(input=="+")
+        {
+         temp.type="operator"
+         temp.value="Plus"
+        }
+        else if(input=="-"){
+         temp.type="operator"
+         temp.value="Minus"
+        }
+        else if(input=="/"){
+         temp.type="operator"
+         temp.value="Division"
+        }
+        else if(input=="*"){
+         temp.type="operator"
+         temp.value="Multiply"
+        }
+        else{
+            temp.type="operator"
+            temp.value="Modulas"
+        }
+    }
+    else if(input.substring(0,1)=="@"||input.substring(0,1)=="#")
+    {
+        if(input.substring(0,1)=="@")
+        {
+            temp.type="entity"
+            temp.value=input.substring(1,input.length)
+        }else
+        {
+            temp.type="intent"
+            temp.value=input.substring(1,input.length)
+        }
+    }
+    else
+    {
+        temp.type="variable"
+        temp.value=input;
+    }
+    
+    return temp;
+}
