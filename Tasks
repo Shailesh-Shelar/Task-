@@ -1,0 +1,75 @@
+# Task-
+const readline = require('readline');
+const inp = readline.createInterface({
+  input: process.stdin
+});
+const userInput = [];
+inp.on("line", (data) => {
+ userInput.push(data);
+});
+inp.on("close", () => {
+
+//start-here
+//Your code goes here … replace this line with your code logic 
+var input = [
+     {
+          "id": 1,
+          "title": "Title 1",
+          "childrens": [
+               {
+                    "id": 2,
+                    "title": "Title 2",
+                    "childrens": []
+               }
+          ]
+     },
+     {
+          "id": 3,
+          "title": "Title 3",
+          "childrens": [
+               {
+                    "id": 4,
+                    "title": "Title 4",
+                    "childrens": [
+                         {
+                              "id": 5,
+                              "title": "Title 5",
+                              "childrens": [{
+                                   "id": 6,
+                              "title": "Title 6",
+                              "childrens": [{"id": 7,
+                              "title": "Title 7",
+                              "childrens": []}]
+                              }
+                               
+                              ]
+                         }
+                    ]
+               }
+               ]
+     }
+     ]
+     
+     let output=[];
+     
+     function createobj(input)
+     {
+         
+         let s={}
+         for(i of input)
+         {
+            s.id=i.id;
+            s.title=i.title;
+            s.childrens=[]
+            output.push(s);
+            s={}
+            if(i.childrens.length>0)
+            {
+            createobj(i.childrens)
+            }
+            
+         }
+     }
+     createobj(input)
+     console.log(output)
+});
